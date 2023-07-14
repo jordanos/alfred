@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /hugging-face-qa-bot
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-deps -r requirements.txt
 
 COPY config/api/ config/api/
 COPY api/ api/

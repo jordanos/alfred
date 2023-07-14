@@ -20,7 +20,7 @@ qa_model = QAModel(
 )
 
 
-@app.get("/")
+@app.get("/chat")
 def get_answer(question: str, messages_context: str):
     logger.info(
         f"Received request with question: {question}"
@@ -33,4 +33,4 @@ def get_answer(question: str, messages_context: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=config.debug)
