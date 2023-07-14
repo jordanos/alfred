@@ -31,6 +31,7 @@ class Config:
     use_messages_in_context: bool = eval(get_env("USE_MESSAGES_IN_CONTEXT", "True"))
     num_relevant_docs: bool = eval(get_env("NUM_RELEVANT_DOCS", 3))
     debug: bool = eval(get_env("DEBUG", "True"))
+    port: str = eval(get_env("PORT", "8000"))
 
     def __post_init__(self):
         # validate config
