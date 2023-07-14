@@ -87,24 +87,26 @@ class TransformersPipelineModel(LLM):
 class APIServedModel(LLM):
     model_url: str = None
     debug: bool = None
+    headers: dict = None
 
-    def __init__(self, model_url: str = None, debug: bool = None):
+    def __init__(self, model_url: str = None, headers: dict=None, debug: bool = None):
         super().__init__()
         if model_url[-1] == "/":
             raise ValueError('URL should not end with a slash - "/"')
         self.model_url = model_url
         self.debug = debug
+        self.headers = headers
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
-        prompt_encoded = quote(prompt, safe="")
-        url = f"{self.model_url}/?prompt={prompt_encoded}"
         if self.debug:
-            logger.info(f"URL: {url}")
+            logger.info(f"URL: {self.model_url}")
         try:
-            response = requests.get(url, timeout=1200, verify=False)
+            response = requests.post(self.model_url, headers=self.headers,
+                                     json={"inputs": prompt})
             response.raise_for_status()
-            output_text = json.loads(response.content)["output_text"]
-            return output_text
+            for resp in response.json():
+                logger.info(resp)
+            return response.json()[0]['generated_text']
         except Exception as err:
             logger.error(f"Error: {err}")
             return f"Error: {err}"
@@ -150,6 +152,7 @@ class QAModel:
         llm_model_id: str,
         embedding_model_id: str,
         index_repo_id: str,
+        api_token: str,
         use_docs_for_context: bool = True,
         add_sources_to_response: bool = True,
         use_messages_for_context: bool = True,
@@ -162,6 +165,7 @@ class QAModel:
         self.use_messages_for_context = use_messages_for_context
         self.num_relevant_docs = num_relevant_docs
         self.debug = debug
+        self.api_token = api_token
 
         if "local_models/" in llm_model_id:
             logger.info("using local binary model")
@@ -169,7 +173,9 @@ class QAModel:
         elif "api_models/" in llm_model_id:
             logger.info("using api served model")
             self.llm_model = APIServedModel(
-                model_url=llm_model_id.replace("api_models/", ""), debug=self.debug
+                model_url=llm_model_id.replace("api_models/", ""), 
+                headers={"Authorization": f"Bearer {self.api_token}"},
+                debug=self.debug
             )
         else:
             logger.info("using transformers pipeline model")

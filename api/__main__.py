@@ -11,6 +11,7 @@ qa_model = QAModel(
     llm_model_id=config.question_answering_model_id,
     embedding_model_id=config.embedding_model_id,
     index_repo_id=config.index_repo_id,
+    api_token=config.huggingface_token,
     use_docs_for_context=config.use_docs_for_context,
     add_sources_to_response=config.add_sources_to_response,
     use_messages_for_context=config.use_messages_in_context,
@@ -20,13 +21,13 @@ qa_model = QAModel(
 
 
 @app.get("/")
-def get_answer(question: str, messgages_context: str):
+def get_answer(question: str, messages_context: str):
     logger.info(
         f"Received request with question: {question}"
-        f"and context: {messgages_context}"
+        f"and context: {messages_context}"
     )
     response = qa_model.get_answer(
-        question=question, messages_context=messgages_context
+        question=question, messages_context=messages_context
     )
     return {"answer": response.get_answer(), "sources": response.get_sources_as_text()}
 
