@@ -8,13 +8,12 @@ ENV PYTHONUNBUFFERED=1
 
 # RUN --mount=type=cache,mode=0755,target=/root/.cache/pip
 
-RUN mkdir /hugging-face-qa-bot
 WORKDIR /hugging-face-qa-bot
 
 COPY requirements.txt .
 RUN pip install --no-deps -r requirements.txt
 
-COPY ./api /hugging-face-qa-bot
+COPY ./api .
 
 EXPOSE 8000
 
