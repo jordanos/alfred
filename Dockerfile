@@ -13,8 +13,7 @@ WORKDIR /hugging-face-qa-bot
 COPY requirements.txt .
 RUN pip install --no-deps -r requirements.txt
 
-COPY config/api/ config/api/
-COPY api/ api/
+COPY ./api .
 
 EXPOSE 8000
 
