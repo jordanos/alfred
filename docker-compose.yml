@@ -3,13 +3,12 @@ services:
   chat-bot-api:
     build:
       context: .
-      dockerfile: Dockerfile
     ports:
       - 8000:8000
     networks:
       - chatbot-network
     volumes:
-      - ./api:/hugging-face-qa-bot
+      - .:/chat-bot
   # bot:
   #   build:
   #     context: .
