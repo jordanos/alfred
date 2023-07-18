@@ -61,5 +61,5 @@ indexes/
 api/question_answering/local_models
 
 # Data
-data/datasets/*
-!data/datasets/hf_repositories_urls.json
+data/raw_files/*
+data/embedings/*
