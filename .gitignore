@@ -50,9 +50,6 @@ venv/
 # OS
 .DS_Store
 
-# IDE
-.vscode
-
 # Project
 wandb/
 indexes/
@@ -62,4 +59,5 @@ api/question_answering/local_models
 
 # Data
 data/raw_files/*
+!data/raw_files/owl_events.txt
 data/embedings/*

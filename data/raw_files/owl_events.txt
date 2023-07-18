@@ -1,0 +1,10 @@
+the home page of owl events does the following: List Event Categories, Premium Events are listed under the Premium Events section of the home page, List of Event Organizers are displayed, List of Public Events in your location, Events can be searched and filtered by their location, category and their price range.
+
+the live events page of owl events does the following: Display a list of live events filtered by many categories, Live events can be searched and filtered by their date, category, vendor, and price range. and also View Event Details and Purchase Tickets.
+
+owl events has four types of subscription plans: Free, Standard, Corporate, Premium.
+
+free subscription plan costs ETB0 per day and have: 1 max events, 1 contacts, 1 email marketing campagins, 1 marketing campaign templates, 1 invitation, 1 system user.
+corporate plan costs ETB0 per day and have: 1 max events, 1 contacts, 1 email marketing campagins, 2 marketing campaign templates, 1 invitation, 1 system user.
+standard plan costs ETB3 per 3days and have: 10 max events, 10 contacts, 10 email marketing campagins, 10 marketing campaign templates, 10 invitation, 10 system user.
+premium plan costs ETB1000 per year and have: 5 max events, 5 contacts, 5 email marketing campagins, 5 marketing campaign templates, 5 invitation, 5 system user.
