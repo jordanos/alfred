@@ -300,7 +300,7 @@ class QAModel:
                 query=messages_context + question, k=self.num_relevant_docs
             )
             context += "\nExtracted documents:\n"
-            context += "".join([doc.page_content for doc in relevant_docs])
+            context += "\n".join([doc.page_content for doc in relevant_docs])
             # metadata = [doc.metadata for doc in relevant_docs]
             # response.set_sources(sources=[str(m["source"]) for m in metadata])
 
