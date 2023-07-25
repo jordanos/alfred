@@ -1,24 +1,72 @@
 version: "3.8"
 services:
-  chat-bot-api:
+  chat-bot:
     build:
-      context: .
+      context: ./chat-bot
+    container_name: chat-bot
     ports:
-      - 8000:8000
-    networks:
-      - chatbot-network
+      - "5000:8000"
+    env_file:
+      - .env
     volumes:
-      - .:/chat-bot
-  # bot:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - chat-bot-api
-  #   networks:
-  #     - chatbot-network
+      - ./chat-bot:/chat-bot
+    networks:
+      - cs-network
+  cs-api:
+    build:
+      context: ./cs_api
+    container_name: cs-api
+    command: >
+      bash -c 
+      "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - cs-redis
+      - cs-db
+      - chat-bot
+    volumes:
+      - ./cs_api:/cs-api
+    networks:
+      - cs-network
+
+  cs-redis:
+    image: redis:7.0-alpine
+    container_name: cs-redis
+    networks:
+      - cs-network
+  cs-celery:
+    build:
+      context: ./cs_api
+    container_name: cs-celery
+    command: celery -A config worker -l INFO
+    volumes:
+      - ./cs_api:/cs-api
+    depends_on:
+      - cs-api
+      - cs-redis
+    networks:
+      - cs-network
+  cs-db:
+    image: docker.io/postgres:15.1-alpine
+    container_name: cs-db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - pg-cs:/var/lib/postgresql/data/
+    networks:
+      - cs-network
+
+volumes:
+  pg-cs:
+  
 networks:
-  chatbot-network:
+  cs-network:
     driver: bridge
