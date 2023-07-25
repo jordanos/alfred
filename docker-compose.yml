@@ -9,16 +9,6 @@ services:
       - chatbot-network
     volumes:
       - .:/chat-bot
-  # bot:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - chat-bot-api
-  #   networks:
-  #     - chatbot-network
 networks:
   chatbot-network:
     driver: bridge
