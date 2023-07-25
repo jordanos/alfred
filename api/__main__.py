@@ -21,14 +21,11 @@ qa_model = QAModel(
 
 
 @app.get("/chat")
-def get_answer(question: str, messages_context: str):
+def get_answer(question: str, messages_context: str = ""):
     logger.info(
-        f"Received request with question: {question}"
-        f"and context: {messages_context}"
+        f"Received request with question: {question}" f"and context: {messages_context}"
     )
-    response = qa_model.get_answer(
-        question=question, messages_context=messages_context
-    )
+    response = qa_model.get_answer(question=question, messages_context=messages_context)
     return {"answer": response.get_answer(), "sources": response.get_sources_as_text()}
 
 
