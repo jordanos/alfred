@@ -61,4 +61,5 @@ api/question_answering/local_models
 data/raw_files/*
 !data/raw_files/owl_events.txt
 data/embedings/*
-media
+media/
+static/
