@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
     "authentication",
+    "agent",
 ]
 
 SITE_ID = 1

@@ -1,4 +1,3 @@
-import authentication.urls as authentication_urls
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -37,7 +36,8 @@ urlpatterns = [
         schema_view.with_ui("redoc", cache_timeout=0),
         name="schema-redoc",
     ),
-    path(f"{API_PATH}/auth/", include(authentication_urls)),
+    path(f"{API_PATH}/auth/", include("authentication.urls"), name="auth"),
+    path(f"{API_PATH}/agents/", include("agent.urls"), name="agents"),
 ]
 
 if settings.DEBUG:
