@@ -1,17 +1,17 @@
 version: "3.8"
 services:
-  chat-bot:
-    build:
-      context: ./chat-bot
-    container_name: chat-bot
-    ports:
-      - "5000:8000"
-    env_file:
-      - .env
-    volumes:
-      - ./chat-bot:/chat-bot
-    networks:
-      - cs-network
+  # chat-bot:
+  #   build:
+  #     context: ./chat-bot
+  #   container_name: chat-bot
+  #   ports:
+  #     - "5000:8000"
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./chat-bot:/chat-bot
+  #   networks:
+  #     - cs-network
   cs-api:
     build:
       context: ./cs_api
@@ -22,6 +22,8 @@ services:
       python manage.py collectstatic --no-input &&
       python manage.py makemigrations &&
       python manage.py migrate &&
+      python manage.py ensure_adminuser --username=$SUPERUSER_USERNAME 
+      --email=$SUPERUSER_EMAIL --password=$SUPERUSER_PASSWORD &&
       python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
@@ -30,12 +32,11 @@ services:
     depends_on:
       - cs-redis
       - cs-db
-      - chat-bot
+      # - chat-bot
     volumes:
       - ./cs_api:/cs-api
     networks:
       - cs-network
-
   cs-redis:
     image: redis:7.0-alpine
     container_name: cs-redis
@@ -61,12 +62,12 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
-      - pg-cs:/var/lib/postgresql/data/
+      - pgdata:/var/lib/postgresql/data/
     networks:
       - cs-network
 
 volumes:
-  pg-cs:
+  pgdata:
   
 networks:
   cs-network:
