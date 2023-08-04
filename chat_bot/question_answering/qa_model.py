@@ -16,8 +16,8 @@ from langchain.vectorstores import FAISS
 from llama_cpp import Llama
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from api.logger import logger
-from api.question_answering.response import Response
+from chat_bot.logger import logger
+from chat_bot.question_answering.response import Response
 
 
 def get_text_splits(text_file):

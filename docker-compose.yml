@@ -1,17 +1,17 @@
 version: "3.8"
 services:
-  # chat-bot:
-  #   build:
-  #     context: ./chat-bot
-  #   container_name: chat-bot
-  #   ports:
-  #     - "5000:8000"
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - ./chat-bot:/chat-bot
-  #   networks:
-  #     - cs-network
+  chat-bot:
+    build:
+      context: ./chat_bot
+    container_name: chat-bot
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    volumes:
+      - ./chat_bot:/chat-bot
+    networks:
+      - cs-network
   cs-api:
     build:
       context: ./cs_api
@@ -32,7 +32,7 @@ services:
     depends_on:
       - cs-redis
       - cs-db
-      # - chat-bot
+      - chat-bot
     volumes:
       - ./cs_api:/cs-api
     networks:

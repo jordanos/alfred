@@ -1,9 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
 
-from api.config import Config
-from api.logger import logger
-from api.question_answering import QAModel
+from chat_bot.config import Config
+from chat_bot.logger import logger
+from chat_bot.question_answering import QAModel
 
 config = Config()
 app = FastAPI()

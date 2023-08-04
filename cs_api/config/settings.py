@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "common",
     "authentication",
     "agent",
+    "chat",
 ]
 
 SITE_ID = 1

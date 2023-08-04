@@ -38,6 +38,7 @@ urlpatterns = [
     ),
     path(f"{API_PATH}/auth/", include("authentication.urls"), name="auth"),
     path(f"{API_PATH}/agents/", include("agent.urls"), name="agents"),
+    path(f"{API_PATH}/chats/", include("chat.urls"), name="chats"),
 ]
 
 if settings.DEBUG:

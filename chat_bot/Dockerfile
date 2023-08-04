@@ -8,14 +8,16 @@ ENV PYTHONUNBUFFERED=1
 
 # RUN --mount=type=cache,mode=0755,target=/root/.cache/pip
 
-RUN mkdir /chat-bot
-WORKDIR /chat-bot
+RUN mkdir /api && cd /api && mkdir chat_bot
+WORKDIR /api
 
 COPY requirements.txt .
+# RUN --mount=type=cache,target=~/.cache/pip \
+#     pip install -r requirements.txt
 RUN pip install --no-deps -r requirements.txt
 
-COPY . /chat-bot
+COPY . /api/chat_bot
 
-EXPOSE 8000
+EXPOSE 5000
 
-CMD [ "python3", "-m", "api" ]
+CMD [ "python3", "-m", "chat_bot" ]
