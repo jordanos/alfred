@@ -1,5 +1,5 @@
-from authentication.serializers import UserSerializer
 from rest_framework import serializers
+from users.serializers import UserSerializer
 
 from .models import AccessToken, Agent, SuperPower
 
