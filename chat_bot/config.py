@@ -2,7 +2,7 @@ import os
 from dataclasses import asdict, dataclass
 from typing import Dict
 
-from api.logger import logger
+from chat_bot.logger import logger
 
 
 def get_env(env_name: str, default=None) -> str:
@@ -31,7 +31,7 @@ class Config:
     use_messages_in_context: bool = eval(get_env("USE_MESSAGES_IN_CONTEXT", "True"))
     num_relevant_docs: bool = eval(get_env("NUM_RELEVANT_DOCS", 3))
     debug: bool = eval(get_env("DEBUG", "True"))
-    port: str = eval(get_env("PORT", "8000"))
+    port: str = eval(get_env("PORT", "5000"))
 
     def __post_init__(self):
         # validate config
