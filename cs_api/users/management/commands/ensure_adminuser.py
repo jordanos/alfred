@@ -2,6 +2,7 @@ import os
 
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
+from users.models import ROLE_OPTIONS
 
 
 class Command(BaseCommand):
@@ -28,4 +29,5 @@ class Command(BaseCommand):
                 username=options["username"],
                 email=options["email"],
                 password=options["password"],
+                role=ROLE_OPTIONS[0][0],
             )

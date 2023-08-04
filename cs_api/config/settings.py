@@ -28,10 +28,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "users",
     "corsheaders",
     "rest_framework",
-    "rest_framework.authtoken",
     "drf_yasg",
+    "rest_framework.authtoken",
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "allauth",
@@ -39,12 +40,13 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
-    "common",
     "authentication",
+    "common",
     "agent",
     "chat",
 ]
 
+AUTH_USER_MODEL = "users.User"
 SITE_ID = 1
 
 MIDDLEWARE = [
