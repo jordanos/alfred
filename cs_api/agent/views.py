@@ -1,4 +1,6 @@
+from authentication.permissions import IsAdmin
 from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import AccessToken, Agent, SuperPower
@@ -8,13 +10,19 @@ from .serializers import AccessTokenSerializer, AgentSerializer, SuperPowerSeria
 class AccessTokenList(generics.ListAPIView):
     queryset = AccessToken.objects.all().order_by("-id")
     serializer_class = AccessTokenSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated, IsAdmin]
 
 
 class AgentList(generics.ListCreateAPIView):
     queryset = Agent.objects.all().order_by("-id")
     serializer_class = AgentSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role in ["ADMIN"]:
+            return Agent.objects.all().order_by("-id")
+        return Agent.objects.filter(owner=user).order_by("-id")
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(
