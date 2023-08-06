@@ -12,7 +12,7 @@ Build smart chatbots for customer support.
 - This spawns up the API, You can take a look at the front-end instructions [here](https://github.com/jordanos/ai-customer-support-web)
 
 
-## Technologies and Featurs
+## Technologies and featurs
 - Django
 - Postgres
 - Redis
