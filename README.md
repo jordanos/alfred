@@ -7,7 +7,7 @@ Build smart chatbots for customer support.
 
 ## Quick Install
 
-- Rename the `.env-template` file to `.env` and supply your environemt variables there.
+- Rename the `.env-template` file to `.env` and supply your environment variables there.
 - Run `docker-compose build` then `docker-compose up`.
 - This spawns up the API, You can take a look at the front-end instructions [here](https://github.com/jordanos/ai-customer-support-web)
 
