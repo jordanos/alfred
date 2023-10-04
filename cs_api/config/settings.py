@@ -197,5 +197,5 @@ EMAIL_USE_SSL = False
 
 
 # Celery settings
-CELERY_BROKER_URL = "redis://cs-redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://cs-redis:6379/0"
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")

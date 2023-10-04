@@ -47,6 +47,8 @@ services:
       context: ./cs_api
     container_name: cs-celery
     command: celery -A config worker -l INFO
+    env_file:
+      - .env
     volumes:
       - ./cs_api:/cs-api
     depends_on:
